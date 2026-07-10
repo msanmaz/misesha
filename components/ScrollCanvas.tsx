@@ -177,73 +177,78 @@ export function ScrollCanvas({ items }: { items: LookbookItem[] }) {
 
   return (
     <div ref={trackRef} style={{ height: `${(n + 2) * 100}vh` }} className="relative">
-      <div className="sticky top-0 h-[100dvh] bg-[#0d0b0a] flex flex-col overflow-hidden">
+      {/* Sticky container — canvas centred in the full 100dvh, info pinned at bottom */}
+      <div className="sticky top-0 h-[100dvh] bg-[#0d0b0a] overflow-hidden relative">
 
-        {/* Canvas zone */}
-        <div className="flex-1 flex items-center justify-center relative min-h-0">
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(241,214,210,0.07) 0%, transparent 70%)",
-            }}
-          />
+        {/* Radial glow behind garment */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 55% 65% at 50% 48%, rgba(241,214,210,0.07) 0%, transparent 70%)",
+          }}
+        />
+
+        {/* Canvas — truly centred in the full viewport */}
+        <div className="absolute inset-0 flex items-center justify-center">
           <canvas
             ref={canvasRef}
             style={{
               display: "block",
-              maxHeight: "100%",
-              maxWidth: "min(88vw, 440px)",
+              /* 70vh cap keeps the dress clear of the info bar at the bottom */
+              maxHeight: "70vh",
+              maxWidth: "min(88vw, 420px)",
               width: "auto",
               height: "auto",
-              filter: "drop-shadow(0 24px 60px rgba(0,0,0,0.6))",
+              filter: "drop-shadow(0 28px 64px rgba(0,0,0,0.65))",
             }}
           />
-          {/* Progress bar */}
-          <div className="absolute right-5 md:right-12 top-1/2 -translate-y-1/2 flex flex-col gap-2 items-center">
-            {items.map((_, i) => (
-              <div
-                key={i}
-                className="w-px rounded-full bg-marble transition-all duration-500"
-                style={{ height: i === activeIndex ? 24 : 5, opacity: i === activeIndex ? 0.55 : 0.15 }}
-              />
-            ))}
-          </div>
         </div>
 
-        {/* Info zone */}
-        <div className="flex-shrink-0 flex items-end justify-between px-6 md:px-14 pb-10 md:pb-12">
-          <div className="text-marble max-w-[70vw] md:max-w-xs">
-            <span className="text-[9px] tracking-[0.22em] uppercase text-marble/30 block mb-3">
-              {String(activeIndex + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
-            </span>
-            <div key={activeIndex} style={{ animation: "zoom-in-up 0.45s ease-out both" }}>
-              <h3 className="font-display italic text-2xl md:text-4xl leading-[1.05] text-marble">
-                {active?.name}
-              </h3>
-              <p className="text-marble/40 mt-1.5 text-xs md:text-sm tracking-wide">
-                {active?.color} · {active?.price}
-              </p>
-            </div>
-            <Link
-              href={`/product/${active?.slug}`}
-              className="group inline-block mt-4 border border-marble/20 hover:border-marble/50 text-marble text-[10px] md:text-xs tracking-wider uppercase relative overflow-hidden rounded-full transition-colors duration-300"
-            >
-              <span className="block px-4 py-2 md:px-5 md:py-2.5 transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:-translate-y-full">
-                View piece
-              </span>
-              <span
-                className="absolute inset-0 flex items-center justify-center translate-y-full transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:translate-y-0"
-                aria-hidden="true"
-              >
-                View piece
-              </span>
-            </Link>
+        {/* Progress bar — vertically centred on right edge */}
+        <div className="absolute right-5 md:right-12 top-1/2 -translate-y-1/2 flex flex-col gap-2 items-center z-10">
+          {items.map((_, i) => (
+            <div
+              key={i}
+              className="w-px rounded-full bg-marble transition-all duration-500"
+              style={{ height: i === activeIndex ? 24 : 5, opacity: i === activeIndex ? 0.55 : 0.15 }}
+            />
+          ))}
+        </div>
+
+        {/* Info — absolutely pinned at bottom-left */}
+        <div className="absolute bottom-10 md:bottom-12 left-6 md:left-14 z-10 text-marble max-w-[70vw] md:max-w-xs">
+          <span className="text-[9px] tracking-[0.22em] uppercase text-marble/30 block mb-3">
+            {String(activeIndex + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
+          </span>
+          <div key={activeIndex} style={{ animation: "zoom-in-up 0.45s ease-out both" }}>
+            <h3 className="font-display italic text-2xl md:text-4xl leading-[1.05] text-marble">
+              {active?.name}
+            </h3>
+            <p className="text-marble/40 mt-1.5 text-xs md:text-sm tracking-wide">
+              {active?.color} · {active?.price}
+            </p>
           </div>
-          <div className="flex flex-col items-center gap-2 opacity-25 pb-1">
-            <div className="w-px h-8 bg-marble/40 overflow-hidden">
-              <div className="w-full h-full bg-marble" style={{ animation: "scroll-line 1.8s ease-in-out infinite" }} />
-            </div>
+          <Link
+            href={`/product/${active?.slug}`}
+            className="group inline-block mt-4 border border-marble/20 hover:border-marble/50 text-marble text-[10px] md:text-xs tracking-wider uppercase relative overflow-hidden rounded-full transition-colors duration-300"
+          >
+            <span className="block px-4 py-2 md:px-5 md:py-2.5 transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:-translate-y-full">
+              View piece
+            </span>
+            <span
+              className="absolute inset-0 flex items-center justify-center translate-y-full transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:translate-y-0"
+              aria-hidden="true"
+            >
+              View piece
+            </span>
+          </Link>
+        </div>
+
+        {/* Scroll hint — bottom-right */}
+        <div className="absolute bottom-10 md:bottom-12 right-6 md:right-14 z-10 opacity-25">
+          <div className="w-px h-8 bg-marble/40 overflow-hidden">
+            <div className="w-full h-full bg-marble" style={{ animation: "scroll-line 1.8s ease-in-out infinite" }} />
           </div>
         </div>
       </div>
