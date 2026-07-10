@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useCart } from "@/lib/cart-context";
-import { BowIcon } from "./BowIcon";
 import { MiniCart } from "./MiniCart";
 
 const NAV_LINKS = [
@@ -64,11 +63,10 @@ export function Header() {
 
           <Link
             href="/"
-            className="justify-self-start inline-flex items-center gap-1.5"
+            className="justify-self-start"
             aria-label="Misesha home"
           >
             <span className="font-display text-2xl leading-none">misesha</span>
-            <BowIcon className="w-5 h-3 text-rosewood -translate-y-0.5" />
           </Link>
 
           <nav

@@ -18,9 +18,25 @@ const instrumentSans = Instrument_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Misesha — Slips, lace & ribbon-tied basics",
+  title: {
+    default: "Misesha",
+    template: "%s — Misesha",
+  },
   description:
-    "Misesha makes small-batch slips, corset tops and lace sets in colours held all the way through.",
+    "Small-batch slips, corset tops and lace sets, hand-finished in colours held all the way through. New colours every Thursday.",
+  keywords: ["misesha", "slip dress", "lace set", "corset top", "small batch fashion", "handmade"],
+  openGraph: {
+    title: "Misesha",
+    description: "Small-batch slips, corset tops and lace sets, hand-finished in colours held all the way through.",
+    siteName: "Misesha",
+    locale: "en_US",
+    type: "website",
+  },
+  icons: {
+    icon: "/misesha-mark.svg",
+    shortcut: "/misesha-mark.svg",
+    apple: "/misesha-mark.svg",
+  },
 };
 
 export default function RootLayout({

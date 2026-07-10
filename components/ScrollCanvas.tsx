@@ -20,33 +20,65 @@ export type LookbookItem = {
 
 const FRAMES_PER_ITEM = 70;
 
+// Removes white studio background AND crops the result to the garment's
+// actual content bounding box in a single pixel pass.
+// Without the crop, empty transparent space at the bottom of product photos
+// throws off the visual centre — the dress appears too high.
 function stripWhiteBackground(img: HTMLImageElement): HTMLCanvasElement {
   const off = document.createElement("canvas");
   off.width = img.naturalWidth;
   off.height = img.naturalHeight;
   const ctx = off.getContext("2d")!;
   ctx.drawImage(img, 0, 0);
+
   const data = ctx.getImageData(0, 0, off.width, off.height);
   const px = data.data;
+  const W = off.width;
+
+  let minX = W, maxX = 0, minY = off.height, maxY = 0;
 
   for (let i = 0; i < px.length; i += 4) {
     const r = px[i], g = px[i + 1], b = px[i + 2];
     const max = Math.max(r, g, b);
     const min = Math.min(r, g, b);
-    const sat = max === 0 ? 0 : (max - min) / max;
+    const sat  = max === 0 ? 0 : (max - min) / max;
     const brightness = (r + g + b) / 3;
 
     if (brightness > 251 && sat < 0.02) {
       px[i + 3] = 0;
     } else if (brightness > 238 && sat < 0.04) {
-      const satFactor = sat / 0.04;
+      const satFactor    = sat / 0.04;
       const brightFactor = (brightness - 238) / 13;
       px[i + 3] = Math.round(Math.max(satFactor, 1 - brightFactor) * px[i + 3]);
+    }
+
+    // Track non-transparent content bounds for later crop
+    if (px[i + 3] > 30) {
+      const idx = i / 4;
+      const x = idx % W;
+      const y = Math.floor(idx / W);
+      if (x < minX) minX = x;
+      if (x > maxX) maxX = x;
+      if (y < minY) minY = y;
+      if (y > maxY) maxY = y;
     }
   }
 
   ctx.putImageData(data, 0, 0);
-  return off;
+
+  // Crop canvas to garment content + small padding so drawGarment centres
+  // the actual dress, not the transparent void below the hemline
+  const pad   = Math.round(off.width * 0.025);
+  const cropX = Math.max(0, minX - pad);
+  const cropY = Math.max(0, minY - pad);
+  const cropW = Math.min(off.width,  maxX + pad) - cropX;
+  const cropH = Math.min(off.height, maxY + pad) - cropY;
+
+  const cropped = document.createElement("canvas");
+  cropped.width  = cropW;
+  cropped.height = cropH;
+  cropped.getContext("2d")!.drawImage(off, -cropX, -cropY);
+  return cropped;
 }
 
 function drawGarment(
