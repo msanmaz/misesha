@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cipria: #f1d6d2;
+  --color-panna: #efe6d8;
+  --color-burro: #f5ead6;
+  --color-adriatico: #aecbdd;
+  --color-moka: #4a2e23;
+  --color-rosewood: #a8505f;
+  --color-marble: #fbf7f2;
+  --color-espresso: #2a2320;
+
+  --radius-arch: 12% 12% 0 0 / 22% 22% 0 0;
+  --radius-arch-lg: 8% 8% 0 0 / 16% 16% 0 0;
+}
+
+@theme inline {
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-instrument-sans);
+}
+
+/* Arch crop signature — a CSS trick, not an SVG mask (see CLAUDE.md) */
+.arch {
+  border-radius: var(--radius-arch-lg);
+}
+
+.arch-sm {
+  border-radius: var(--radius-arch);
+}
