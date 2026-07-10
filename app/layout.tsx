@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Instrument_Sans } from "next/font/google";
 import { CartProvider } from "@/lib/cart-context";
+import { LenisProvider } from "@/components/LenisProvider";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -33,7 +34,9 @@ export default function RootLayout({
       className={`${fraunces.variable} ${instrumentSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-marble text-espresso font-body">
-        <CartProvider>{children}</CartProvider>
+        <CartProvider>
+          <LenisProvider>{children}</LenisProvider>
+        </CartProvider>
       </body>
     </html>
   );

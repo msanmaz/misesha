@@ -100,9 +100,17 @@ export function ProductDetail({
           <button
             type="button"
             onClick={handleAddToBag}
-            className="mt-6 w-full bg-rosewood text-marble text-sm tracking-wide uppercase py-3.5 rounded-full hover:bg-rosewood/90"
+            className="group mt-6 w-full bg-rosewood text-marble text-sm tracking-wide uppercase rounded-full relative overflow-hidden"
           >
-            Add to Bag
+            <span className="block py-3.5 transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:-translate-y-full">
+              Add to Bag
+            </span>
+            <span
+              className="absolute inset-0 flex items-center justify-center translate-y-full transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:translate-y-0"
+              aria-hidden="true"
+            >
+              Add to Bag
+            </span>
           </button>
           {feedback && (
             <p role="status" aria-live="polite" className="text-sm text-espresso/70 mt-2">

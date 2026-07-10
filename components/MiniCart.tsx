@@ -110,7 +110,7 @@ export function MiniCart({ open = false }: { open?: boolean }) {
           <Link
             href="/cart"
             onClick={closeMiniCart}
-            className="flex-1 text-center border border-espresso/20 text-sm py-2.5 rounded-full hover:border-espresso/40"
+            className="flex-1 text-center border border-espresso/30 text-espresso text-sm py-2.5 rounded-full hover:border-espresso/60 hover:bg-espresso/5 transition-colors"
           >
             View Bag
           </Link>
