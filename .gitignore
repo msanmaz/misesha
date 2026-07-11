@@ -44,6 +44,7 @@ next-env.d.ts
 .claude/
 .playwright-mcp/
 
+
 # Research / recon artefacts (local only)
 docs/
 serotoninn-analysis*.js

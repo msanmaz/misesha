@@ -6,6 +6,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { ScrollCanvas, type LookbookItem } from "@/components/ScrollCanvas";
 import { ParallaxSection } from "@/components/ParallaxSection";
+import { HeroSection } from "@/components/HeroSection";
 import { BowIcon } from "@/components/BowIcon";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { PRODUCTS } from "@/lib/products";
@@ -77,77 +78,8 @@ export default function Home() {
     <>
       <Header />
       <main className="flex-1">
-        {/* ── Fixed hero: pinned to viewport; content slides over it on scroll ── */}
-        <section className="fixed top-0 left-0 right-0 bottom-0 z-0 overflow-hidden">
-          <Image
-            src="/images/hero-riad-arch.jpg"
-            alt="Woman in white lace dress standing beneath a carved Moroccan arch, lush riad courtyard behind"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[center_30%] hero-zoom"
-          />
-          {/* Bottom gradient — text legibility */}
-          <div className="absolute inset-0 bg-gradient-to-t from-espresso/70 via-espresso/15 to-transparent" />
-          {/* Top gradient — nav always readable regardless of hero image content */}
-          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-espresso/60 to-transparent" />
-
-          {/* Text block anchored to bottom-left */}
-          <div className="absolute inset-0 flex flex-col justify-end px-8 pb-16 md:px-16 md:pb-20">
-            <div className="max-w-[580px]">
-              <span
-                className="inline-flex items-center gap-2 text-xs tracking-wider uppercase text-marble/80 font-medium"
-                style={{ animation: "zoom-in-up 0.5s ease-out 0.2s both" }}
-              >
-                <BowIcon className="w-5 h-3 text-cipria" />
-                Resort Edit, Vol. 1
-              </span>
-              <h1
-                className="font-display text-5xl md:text-7xl text-marble leading-[1.05] mt-3"
-                style={{ animation: "zoom-in-up 0.6s ease-out 0.4s both" }}
-              >
-                Tied in ribbon,{" "}
-                <em className="italic text-cipria">worn like skin.</em>
-              </h1>
-              <p
-                className="mt-4 text-marble/70 max-w-md text-base"
-                style={{ animation: "zoom-in-up 0.6s ease-out 0.55s both" }}
-              >
-                Slips, corset tops and lace sets stitched for the mornings you
-                take slow — from a kitchen table in Bodrum to your own.
-              </p>
-              <div style={{ animation: "zoom-in-up 0.6s ease-out 0.7s both" }}>
-                <Link
-                  href="/shop"
-                  className="group inline-block mt-6 bg-marble text-espresso text-sm tracking-wide uppercase rounded-full relative overflow-hidden"
-                >
-                  <span className="block px-6 py-3 transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:-translate-y-full">
-                    Shop New In
-                  </span>
-                  <span
-                    className="absolute inset-0 flex items-center justify-center translate-y-full transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:translate-y-0"
-                    aria-hidden="true"
-                  >
-                    Shop New In
-                  </span>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Scroll indicator — running line */}
-          <div className="absolute bottom-10 right-8 md:right-16 flex flex-col items-center gap-3">
-            <span className="text-marble/40 text-[9px] tracking-[0.2em] uppercase [writing-mode:vertical-rl]">
-              Scroll
-            </span>
-            <div className="w-px h-14 bg-marble/20 overflow-hidden relative">
-              <div
-                className="absolute inset-x-0 top-0 h-full bg-marble/60"
-                style={{ animation: "scroll-line 1.8s ease-in-out infinite" }}
-              />
-            </div>
-          </div>
-        </section>
+        {/* ── Fixed hero — GSAP SplitText entrance + ScrollTrigger parallax ── */}
+        <HeroSection />
 
         {/* Spacer — pushes the sliding content below the hero on initial load */}
         <div className="h-[100dvh]" aria-hidden="true" />
@@ -210,8 +142,8 @@ export default function Home() {
         </section>
 
         <ParallaxSection
-          src="/images/mood-arch-bathroom.webp"
-          alt="Blush pink tiled archway with a brass Moroccan lantern, potted palms and a pink marble tub."
+          src="/images/campaign3-riad-palms-gown.jpg"
+          alt="Woman in an ivory column gown standing among tall palms in the sunlit courtyard of a Moroccan riad."
           quote={
             <p className="font-display italic text-2xl md:text-4xl text-marble text-center max-w-lg">
               One colour, held all the way through — that&rsquo;s the whole idea.
