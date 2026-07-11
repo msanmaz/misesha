@@ -29,21 +29,42 @@ const RIAD_EDIT = [
   },
 ];
 
+const BORROWED_APARTMENT_HERO = {
+  src: "/images/campaign3-panna-salon-rabbits.jpeg",
+  alt: "Woman in the ivory ribbed knit column gown standing before a pink silk settee in a gilded French salon, with white rabbits jumping around her and gilt-framed portraits behind.",
+  caption: "Somebody's rabbits got into the shoot. We kept them in every frame after that.",
+};
+
 const BORROWED_APARTMENT = [
   {
-    src: "/images/campaign2-panna-salon-rabbits.jpeg",
-    alt: "Woman in the ivory ribbed knit column gown standing before a pink silk settee in a gilded French salon, with white rabbits jumping around her and gilt-framed portraits behind.",
-    caption: "Somebody's rabbits got into the shoot. We kept them in every frame after that.",
+    src: "/images/campaign3-panna-dresser.jpeg",
+    alt: "Woman in the ivory ribbed knit gown seated on an antique wooden dresser, applying lip product while facing a gilded mirror.",
+    caption: "Getting ready in someone else's room — the dress didn't mind.",
   },
   {
-    src: "/images/campaign2-adriatico-vanity.jpeg",
-    alt: "Woman in the sky blue satin slip dress seated at an antique dressing table, applying lip gloss with a hand mirror.",
-    caption: "The sky slip, five minutes before we had to give the room back.",
-  },
-  {
-    src: "/images/campaign2-cipria-candelabra.jpeg",
-    alt: "Woman in the blush cowl-neck wrap top beside a gilt candelabra in a French period room.",
+    src: "/images/campaign3-cipria-candelabra.jpeg",
+    alt: "Woman in the blush cowl-neck crop top and maxi skirt standing beside a towering gilt candelabra in a French period room with dark antique furniture.",
     caption: "Cipria under someone else's chandelier, one afternoon in a borrowed apartment.",
+  },
+  {
+    src: "/images/campaign3-adriatico-velvet-sofa.jpeg",
+    alt: "Woman in the sky blue satin lace-trim halter slip dress seated on a forest green velvet sofa, vintage floral wallpaper behind her.",
+    caption: "The sky slip against the one sofa that made sense for it.",
+  },
+  {
+    src: "/images/campaign3-burro-salon-rabbits.jpeg",
+    alt: "Woman in the pale yellow off-shoulder ruffle top and tiered skirt seated on the floor of a gilded French salon, white rabbits nearby.",
+    caption: "Burro in the rabbit room — they kept very still for this one.",
+  },
+  {
+    src: "/images/campaign3-adriatico-bedroom.jpeg",
+    alt: "Woman in the sky blue satin slip dress seated on a gilded stool in a warm antique bedroom, applying lip gloss with a hand mirror.",
+    caption: "Five minutes before we had to give the room back.",
+  },
+  {
+    src: "/images/campaign3-cipria-wallpaper.jpeg",
+    alt: "Woman in a blush pink mesh crop top and wide-leg satin skirt sitting on a parquet floor against vintage pink floral wallpaper, green velvet sofa beside her.",
+    caption: "The wallpaper was an accident. We shot against it for the rest of the day.",
   },
 ];
 
@@ -159,13 +180,31 @@ export default function Home() {
             </span>
             <h2 className="font-display text-3xl mt-3">Same rule, a different room</h2>
             <p className="mt-3 text-espresso/70">
-              Cipria, Adriatico and Panna, shot together one afternoon in a
-              gilded Paris apartment — rabbits included.
+              Cipria, Adriatico, Panna and Burro — shot over one afternoon in
+              a gilded Paris apartment. Rabbits included.
             </p>
           </ScrollReveal>
+
+          {/* Featured hero shot */}
+          <ScrollReveal className="mb-6" variant="scale">
+            <figure>
+              <div className="relative w-full aspect-[4/3] md:aspect-[16/9] arch overflow-hidden">
+                <Image
+                  src={BORROWED_APARTMENT_HERO.src}
+                  alt={BORROWED_APARTMENT_HERO.alt}
+                  fill
+                  sizes="100vw"
+                  className="object-cover object-top"
+                />
+              </div>
+              <figcaption className="mt-3 text-sm text-espresso/70">{BORROWED_APARTMENT_HERO.caption}</figcaption>
+            </figure>
+          </ScrollReveal>
+
+          {/* 3-col grid — remaining 6 shots */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {BORROWED_APARTMENT.map((shot, i) => (
-              <ScrollReveal key={shot.src} delay={i * 130} variant="scale">
+              <ScrollReveal key={shot.src} delay={i * 100} variant="scale">
                 <figure>
                   <div className="relative aspect-[3/4] arch-sm overflow-hidden">
                     <Image
